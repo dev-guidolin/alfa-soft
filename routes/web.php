@@ -1,13 +1,15 @@
 <?php
 
+use App\Http\Controllers\Agenda;
 use Illuminate\Support\Facades\Route;
 
-Route::resource('/',\App\Http\Controllers\Agenda::class)->names([
-    'index'     => 'agenda.index',
-    'create'    => 'agenda.create',
-    'store'     => 'agenda.store',
-    'show'      => 'agenda.show',
-    'edit'      => 'agenda.edit',
-    'update'    => 'agenda.update',
-    'destroy'   => 'agenda.destroy',
-]);
+
+Route::get('/',[Agenda::class,'index']);
+
+
+Route::get('user/detail/{id}',[Agenda::class,'show']);
+
+Route::get('user/edit/{id}',[Agenda::class,'edit']);
+Route::post('user/update/',[Agenda::class,'update']);
+
+Route::get('user/delete/{id}',[Agenda::class,'destroy']);
