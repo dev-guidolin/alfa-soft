@@ -26,22 +26,85 @@ class Agenda extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function create()
     {
-        //
+        return view('pages.contact_add');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        if (!isset($data['name']) or !isset($data['contact']) or !isset($data['email'])):
+            return response()->json([
+                'success' => false,
+                'message' => 'Todos os campos do formulário são obrigatórios'
+            ]);
+        endif;
+
+        if (strlen($data['name']) < 5 || strlen($data['name']) > 20):
+            return  response()->json([
+                'success' => false,
+                'message' => 'O campo nome deve deve ser maior que 5 carateres e menor que 20 carateres'
+            ]);
+        endif;
+        if (strlen($data['contact']) != 14):
+            return  response()->json([
+                'success' => false,
+                'message' => 'O campo contato deve ter pelo menos 14 carateres'
+            ]);
+        endif;
+
+        $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) :
+            return response()->json([
+                'success' => false,
+                'message' => 'Por favor, insera um email válido'
+            ]);
+        endif;
+
+        $exist_email = User::whereEmail($request->email)->get()->first();
+        $exist_contact = User::whereContact($request->contact)->get()->first();
+
+        if($exist_email)
+        {
+            return response()->json([
+                'success' => false,
+                'message' => "O email {$request->email} já está cadastrado, escolha outro"
+            ]);
+        }
+
+        if($exist_contact)
+        {
+            return response()->json([
+                'success' => false,
+                'message' => "O contato {$request->contact} já está cadastrado, escolha outro"
+            ]);
+        }
+
+
+        try {
+            $data['role'] = 'user';
+            User::create($data);
+            return response()->json([
+                'success' => true,
+                'message' => 'Usuário criado com sucesso'
+            ]);
+        }catch(\Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => $e
+            ]);
+        }
+
     }
 
     /**

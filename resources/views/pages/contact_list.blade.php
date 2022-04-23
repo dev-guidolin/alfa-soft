@@ -23,9 +23,18 @@
                             <td>{{ $user->contact }}</td>
                             <td>{{ $user->email  }}</td>
                             <td class="text-center">
-                                <a href="{{ url('/user/detail',$user->id)  }}">
-                                    <button type="button" class="btn btn-primary" title="Ver detalhes"><i class="bi bi-eye"></i> Detalhe</button>
-                                </a>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-primary">
+                                        <a class="text-decoration-none text-white" href="{{ url('/user/detail',$user->id)  }}">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </button>
+                                    <button type="button" class="btn btn-success">
+                                        <a class="text-decoration-none text-white" href="{{ url('/user/edit',$user->id)  }}">
+                                            <i class="bi bi-pen"></i>
+                                        </a>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     @endForeach

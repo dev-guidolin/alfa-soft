@@ -7,7 +7,6 @@
     <title> @yield('title') </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-
     @yield('exstra-css')
     @yield('exstra-style')
 </head>
@@ -17,13 +16,10 @@
         <div class="col">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" aria-current="page" href="{{ url('') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Cadastrar</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">login</a>
+                    <a class="nav-link" href="{{ url('user/create') }}">Cadastrar</a>
                 </li>
             </ul>
         </div>
