@@ -60,13 +60,13 @@
                     }
                 },
                 error: (err)=>{
+                    console.log(err)
                     Swal.fire({
-                        title: 'Error!',
+                        title: 'Erro!',
                         text: err.responseJSON.errors.id[0],
                         icon: 'error',
                         confirmButtonText: 'Fechar'
                     })
-                    console.log()
                 }
             })
         })

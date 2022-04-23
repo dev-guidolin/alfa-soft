@@ -71,8 +71,8 @@ class Agenda extends Controller
             ]);
         endif;
 
-        $exist_email = User::whereEmail($request->email)->get()->first();
-        $exist_contact = User::whereContact($request->contact)->get()->first();
+        $exist_email = User::whereEmail($request->email)->withTrashed()->get()->first();
+        $exist_contact = User::whereContact($request->contact)->withTrashed()->get()->first();
 
         if($exist_email)
         {
