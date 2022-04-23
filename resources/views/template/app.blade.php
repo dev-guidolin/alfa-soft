@@ -12,7 +12,23 @@
     @yield('exstra-style')
 </head>
 <body>
-
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Cadastrar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 @yield('content')
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -4,6 +4,7 @@
 @endSection()
 @section('content')
     <div class="container mt-5">
+
         <div class="row">
             <div class="col-sm-12 mx-auto">
                 <table class="table table-striped">

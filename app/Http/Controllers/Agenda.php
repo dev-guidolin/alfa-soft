@@ -98,7 +98,6 @@ class Agenda extends Controller
         $user = User::find($request->id);
         if($request->email != $user->email){
             $exist_email = User::whereEmail($request->email)->get()->first();
-
              if($exist_email)
             {
                 return response()->json([
@@ -106,8 +105,18 @@ class Agenda extends Controller
                     'message' => 'O email a ser atualizado já existe no banco de dados, por favor escolha outro email.'
                 ]);
             }
-
         }
+        if($request->contact != $user->contact){
+            $exist_email = User::whereEmail($request->contact)->get()->first();
+            if($exist_email)
+            {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'O contacto a ser atualizado já existe no banco de dados, por favor escolha outro contacto.'
+                ]);
+            }
+        }
+
         $user->name = $request->name;
         $user->contact = $request->contact;
         $user->email = $request->email;
