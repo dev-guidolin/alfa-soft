@@ -208,7 +208,7 @@ class Agenda extends Controller
             return  view('pages.contact_delete',['success'=>false,'message' => "Usuário não encontrado."]);
         }
         try {
-           $user->delete();
+           $user->forceDelete();
            return  view('pages.contact_delete',['success'=>true,'message' => "Usuário {$user->name} apagado com sucesso"]);
         }catch (\Exception $e){
             return  view('pages.contact_delete',['success'=>false,'message' => "Erro ao apgar o usuário  {$user->name}"]);
