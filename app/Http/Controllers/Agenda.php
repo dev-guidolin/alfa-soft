@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -67,8 +68,16 @@ class Agenda extends Controller
      */
     public function edit($id)
     {
-        $user = User::findorFail($id);
-        return view('pages.contact_edit', compact('user'));
+        try
+        {
+            $user = User::findorFail($id);
+            return view('pages.contact_edit', compact('user'));
+
+        }
+        catch(ModelNotFoundException  $e)
+        {
+            return redirect('/');
+         }
     }
 
     /**
@@ -117,10 +126,21 @@ class Agenda extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
+     * @return Application|Factory|View|Response
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        if (!$user)
+        {
+            return  view('pages.contact_delete',['success'=>false,'message' => "Usuário não encontrado."]);
+        }
+        try {
+           $user->delete();
+           return  view('pages.contact_delete',['success'=>true,'message' => "Usuário {$user->name} apagado com sucesso"]);
+        }catch (\Exception $e){
+            return  view('pages.contact_delete',['success'=>false,'message' => "Erro ao apgar o usuário  {$user->name}"]);
+        }
+
     }
 }

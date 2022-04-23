@@ -19,7 +19,7 @@
                         </p>
                         @if(true)
                             <span> <a href="{{ url('/user/edit',$user->id) }}" class="text-decoration-none">Editar</a></span>
-                            <span class="ml-5"><a class="text-decoration-none text-danger" href="{{ url('/user/delete',$user->id) }}">Apagar</a></span>
+                            <span class="ml-5"><a class="text-decoration-none text-danger" href="{{ url('user/delete',$user->id) }}">Apagar</a></span>
                         @endif
                     </div>
                 </div>
